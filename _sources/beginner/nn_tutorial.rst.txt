@@ -99,7 +99,6 @@ first.
 .. code-block:: python
 
 
-    # get_ipython().run_line_magic("matplotlib", "inline")
     from matplotlib import pyplot
     import numpy as np
 
@@ -130,11 +129,29 @@ convert our data.
     )
     n, c = x_train.shape
     x_train, x_train.shape, y_train.min(), y_train.max()
+    print(x_train, y_train)
+    print(x_train.shape)
+    print(y_train.min(), y_train.max())
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor([[0., 0., 0.,  ..., 0., 0., 0.],
+            [0., 0., 0.,  ..., 0., 0., 0.],
+            [0., 0., 0.,  ..., 0., 0., 0.],
+            ...,
+            [0., 0., 0.,  ..., 0., 0., 0.],
+            [0., 0., 0.,  ..., 0., 0., 0.],
+            [0., 0., 0.,  ..., 0., 0., 0.]]) tensor([5, 0, 4,  ..., 8, 4, 8])
+    torch.Size([50000, 784])
+    tensor(0) tensor(9)
 
 
 Neural net from scratch (no torch.nn)
@@ -217,11 +234,20 @@ random at this stage, since we start with random weights.
     xb = x_train[0:bs]  # a mini-batch from x
     preds = model(xb)  # predictions
     preds[0], preds.shape
+    print(preds[0], preds.shape)
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor([-2.9351, -2.2658, -2.0689, -2.9168, -2.2468, -2.2679, -2.2111, -2.3868,
+            -2.0436, -2.1008], grad_fn=<SelectBackward>) torch.Size([64, 10])
 
 
 As you see, the ``preds`` tensor contains not only the tensor values, but also a
@@ -256,12 +282,20 @@ after a backprop pass later.
 
 
     yb = y_train[0:bs]
-    loss_func(preds, yb)
+    print(loss_func(preds, yb))
 
 
 
 
 
+
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor(2.4391, grad_fn=<NegBackward>)
 
 
 Let's also implement a function to calculate the accuracy of our model.
@@ -291,12 +325,19 @@ accuracy improves as our loss improves.
 .. code-block:: python
 
 
-    accuracy(preds, yb)
+    print(accuracy(preds, yb))
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor(0.0938)
 
 
 We can now run a training loop.  For each iteration, we will:
@@ -369,12 +410,19 @@ have increased, and they have.
 .. code-block:: python
 
 
-    loss_func(model(xb), yb), accuracy(model(xb), yb)
+    print(loss_func(model(xb), yb), accuracy(model(xb), yb))
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor(0.0807, grad_fn=<NegBackward>) tensor(1.)
 
 
 Using torch.nn.functional
@@ -425,12 +473,19 @@ confirm that our loss and accuracy are the same as before:
 .. code-block:: python
 
 
-    loss_func(model(xb), yb), accuracy(model(xb), yb)
+    print(loss_func(model(xb), yb), accuracy(model(xb), yb))
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor(0.0807, grad_fn=<NllLossBackward>) tensor(1.)
 
 
 Refactor using nn.Module
@@ -495,12 +550,19 @@ method automatically.
 .. code-block:: python
 
 
-    loss_func(model(xb), yb)
+    print(loss_func(model(xb), yb))
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor(2.4906, grad_fn=<NllLossBackward>)
 
 
 Previously for our training loop we had to update the values for each parameter
@@ -776,12 +838,19 @@ Now, we can do these two steps together:
             opt.step()
             opt.zero_grad()
 
-    loss_func(model(xb), yb)
+    print(loss_func(model(xb), yb))
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    tensor(0.0807, grad_fn=<NllLossBackward>)
 
 
 Refactor using DataLoader
@@ -923,8 +992,8 @@ and ``nn.Dropout`` to ensure appropriate behaviour for these different phases.)
 
  .. code-block:: none
 
-    0 tensor(0.3191)
-    1 tensor(0.3259)
+    0 tensor(0.4481)
+    1 tensor(0.2753)
 
 
 Create fit() and get_data()
@@ -1034,8 +1103,8 @@ model can be run in 3 lines of code:
 
  .. code-block:: none
 
-    0 0.3546265841960907
-    1 0.5420797511100769
+    0 0.31736994433403015
+    1 0.2814037315368652
 
 
 You can use these basic 3 lines of code to train a wide variety of models.
@@ -1107,8 +1176,8 @@ and generally leads to faster training.
 
  .. code-block:: none
 
-    0 0.34765848155021667
-    1 0.22720473165512084
+    0 0.370499364566803
+    1 0.21301074953079224
 
 
 nn.Sequential
@@ -1181,8 +1250,8 @@ The model created with ``Sequential`` is simply:
 
  .. code-block:: none
 
-    0 0.3495241189479828
-    1 0.26614540643692014
+    0 0.34158235063552855
+    1 0.24259129881858826
 
 
 Wrapping DataLoader
@@ -1266,8 +1335,8 @@ Let's try it out:
 
  .. code-block:: none
 
-    0 0.33898549118041993
-    1 0.27448395199775694
+    0 0.3694467888355255
+    1 0.2997670534133911
 
 
 Using your GPU
@@ -1283,12 +1352,19 @@ Pytorch:
 .. code-block:: python
 
 
-    torch.cuda.is_available()
+    print(torch.cuda.is_available())
 
 
 
 
 
+.. rst-class:: sphx-glr-script-out
+
+ Out:
+
+ .. code-block:: none
+
+    False
 
 
 And then create a device object for it:
@@ -1364,8 +1440,8 @@ You should find it runs faster now:
 
  .. code-block:: none
 
-    0 0.2408169276714325
-    1 0.17630995440483094
+    0 0.24265528926849364
+    1 0.2349141617298126
 
 
 Closing thoughts
@@ -1402,7 +1478,7 @@ what we've seen:
  - ``DataLoader``: Takes any ``Dataset`` and creates an iterator which returns batches of data.
 
 
-**Total running time of the script:** ( 1 minutes  54.900 seconds)
+**Total running time of the script:** ( 1 minutes  51.219 seconds)
 
 
 .. _sphx_glr_download_beginner_nn_tutorial.py:

@@ -67,7 +67,6 @@ with gzip.open(PATH / FILENAME, "rb") as f:
 # 784 (=28x28). Let's take a look at one; we need to reshape it to 2d
 # first.
 
-# get_ipython().run_line_magic("matplotlib", "inline")
 from matplotlib import pyplot
 import numpy as np
 
@@ -85,6 +84,9 @@ x_train, y_train, x_valid, y_valid = map(
 )
 n, c = x_train.shape
 x_train, x_train.shape, y_train.min(), y_train.max()
+print(x_train, y_train)
+print(x_train.shape)
+print(y_train.min(), y_train.max())
 
 ###############################################################################
 # Neural net from scratch (no torch.nn)
@@ -142,6 +144,7 @@ bs = 64  # batch size
 xb = x_train[0:bs]  # a mini-batch from x
 preds = model(xb)  # predictions
 preds[0], preds.shape
+print(preds[0], preds.shape)
 
 ###############################################################################
 # As you see, the ``preds`` tensor contains not only the tensor values, but also a
@@ -161,7 +164,8 @@ loss_func = nll
 # after a backprop pass later.
 
 yb = y_train[0:bs]
-loss_func(preds, yb)
+print(loss_func(preds, yb))
+
 
 ###############################################################################
 # Let's also implement a function to calculate the accuracy of our model.
@@ -176,7 +180,7 @@ def accuracy(out, yb):
 # Let's check the accuracy of our random model, so we can see if our
 # accuracy improves as our loss improves.
 
-accuracy(preds, yb)
+print(accuracy(preds, yb))
 
 ###############################################################################
 # We can now run a training loop.  For each iteration, we will:
@@ -234,7 +238,7 @@ for epoch in range(epochs):
 # earlier. We expect that the loss will have decreased and accuracy to
 # have increased, and they have.
 
-loss_func(model(xb), yb), accuracy(model(xb), yb)
+print(loss_func(model(xb), yb), accuracy(model(xb), yb))
 
 ###############################################################################
 # Using torch.nn.functional
@@ -270,7 +274,7 @@ def model(xb):
 # Note that we no longer call ``log_softmax`` in the ``model`` function. Let's
 # confirm that our loss and accuracy are the same as before:
 
-loss_func(model(xb), yb), accuracy(model(xb), yb)
+print(loss_func(model(xb), yb), accuracy(model(xb), yb))
 
 ###############################################################################
 # Refactor using nn.Module
@@ -310,7 +314,7 @@ model = Mnist_Logistic()
 # *callable*), but behind the scenes Pytorch will call our ``forward``
 # method automatically.
 
-loss_func(model(xb), yb)
+print(loss_func(model(xb), yb))
 
 ###############################################################################
 # Previously for our training loop we had to update the values for each parameter
@@ -491,7 +495,7 @@ for epoch in range(epochs):
         opt.step()
         opt.zero_grad()
 
-loss_func(model(xb), yb)
+print(loss_func(model(xb), yb))
 
 ###############################################################################
 # Refactor using DataLoader
@@ -808,7 +812,7 @@ fit(epochs, model, loss_func, opt, train_dl, valid_dl)
 # use it to speed up your code. First check that your GPU is working in
 # Pytorch:
 
-torch.cuda.is_available()
+print(torch.cuda.is_available())
 
 ###############################################################################
 # And then create a device object for it:
