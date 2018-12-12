@@ -129,9 +129,9 @@ convert our data.
     )
     n, c = x_train.shape
     x_train, x_train.shape, y_train.min(), y_train.max()
-    print (x_train, y_train)
-    print (x_train.shape)
-    print (y_train.min(), y_train.max())
+    print(x_train, y_train)
+    print(x_train.shape)
+    print(y_train.min(), y_train.max())
 
 
 
@@ -234,7 +234,7 @@ random at this stage, since we start with random weights.
     xb = x_train[0:bs]  # a mini-batch from x
     preds = model(xb)  # predictions
     preds[0], preds.shape
-    print (preds[0], preds.shape)
+    print(preds[0], preds.shape)
 
 
 
@@ -246,8 +246,8 @@ random at this stage, since we start with random weights.
 
  .. code-block:: none
 
-    tensor([-1.8496, -2.5447, -2.4956, -1.9522, -2.6506, -2.1487, -2.3929, -2.7722,
-            -2.3344, -2.2848], grad_fn=<SelectBackward>) torch.Size([64, 10])
+    tensor([-2.9351, -2.2658, -2.0689, -2.9168, -2.2468, -2.2679, -2.2111, -2.3868,
+            -2.0436, -2.1008], grad_fn=<SelectBackward>) torch.Size([64, 10])
 
 
 As you see, the ``preds`` tensor contains not only the tensor values, but also a
@@ -295,7 +295,7 @@ after a backprop pass later.
 
  .. code-block:: none
 
-    tensor(2.3723, grad_fn=<NegBackward>)
+    tensor(2.4391, grad_fn=<NegBackward>)
 
 
 Let's also implement a function to calculate the accuracy of our model.
@@ -337,7 +337,7 @@ accuracy improves as our loss improves.
 
  .. code-block:: none
 
-    tensor(0.0312)
+    tensor(0.0938)
 
 
 We can now run a training loop.  For each iteration, we will:
@@ -422,7 +422,7 @@ have increased, and they have.
 
  .. code-block:: none
 
-    tensor(0.0806, grad_fn=<NegBackward>) tensor(1.)
+    tensor(0.0807, grad_fn=<NegBackward>) tensor(1.)
 
 
 Using torch.nn.functional
@@ -485,7 +485,7 @@ confirm that our loss and accuracy are the same as before:
 
  .. code-block:: none
 
-    tensor(0.0806, grad_fn=<NllLossBackward>) tensor(1.)
+    tensor(0.0807, grad_fn=<NllLossBackward>) tensor(1.)
 
 
 Refactor using nn.Module
@@ -562,7 +562,7 @@ method automatically.
 
  .. code-block:: none
 
-    tensor(2.3585, grad_fn=<NllLossBackward>)
+    tensor(2.4906, grad_fn=<NllLossBackward>)
 
 
 Previously for our training loop we had to update the values for each parameter
@@ -850,7 +850,7 @@ Now, we can do these two steps together:
 
  .. code-block:: none
 
-    tensor(0.0811, grad_fn=<NllLossBackward>)
+    tensor(0.0807, grad_fn=<NllLossBackward>)
 
 
 Refactor using DataLoader
@@ -992,8 +992,8 @@ and ``nn.Dropout`` to ensure appropriate behaviour for these different phases.)
 
  .. code-block:: none
 
-    0 tensor(0.3391)
-    1 tensor(0.3148)
+    0 tensor(0.4481)
+    1 tensor(0.2753)
 
 
 Create fit() and get_data()
@@ -1103,8 +1103,8 @@ model can be run in 3 lines of code:
 
  .. code-block:: none
 
-    0 0.32835249395370486
-    1 0.28226944351196287
+    0 0.31736994433403015
+    1 0.2814037315368652
 
 
 You can use these basic 3 lines of code to train a wide variety of models.
@@ -1176,8 +1176,8 @@ and generally leads to faster training.
 
  .. code-block:: none
 
-    0 0.3758918402671814
-    1 0.26694041481018066
+    0 0.370499364566803
+    1 0.21301074953079224
 
 
 nn.Sequential
@@ -1250,8 +1250,8 @@ The model created with ``Sequential`` is simply:
 
  .. code-block:: none
 
-    0 0.33587826619148253
-    1 0.2492966045856476
+    0 0.34158235063552855
+    1 0.24259129881858826
 
 
 Wrapping DataLoader
@@ -1335,8 +1335,8 @@ Let's try it out:
 
  .. code-block:: none
 
-    0 0.31778407225608823
-    1 0.2557865488052368
+    0 0.3694467888355255
+    1 0.2997670534133911
 
 
 Using your GPU
@@ -1440,8 +1440,8 @@ You should find it runs faster now:
 
  .. code-block:: none
 
-    0 0.2002904890060425
-    1 0.2024280714035034
+    0 0.24265528926849364
+    1 0.2349141617298126
 
 
 Closing thoughts
@@ -1478,7 +1478,7 @@ what we've seen:
  - ``DataLoader``: Takes any ``Dataset`` and creates an iterator which returns batches of data.
 
 
-**Total running time of the script:** ( 2 minutes  4.177 seconds)
+**Total running time of the script:** ( 1 minutes  51.219 seconds)
 
 
 .. _sphx_glr_download_beginner_nn_tutorial.py:

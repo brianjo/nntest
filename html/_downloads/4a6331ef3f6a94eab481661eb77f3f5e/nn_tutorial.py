@@ -84,9 +84,9 @@ x_train, y_train, x_valid, y_valid = map(
 )
 n, c = x_train.shape
 x_train, x_train.shape, y_train.min(), y_train.max()
-print (x_train, y_train)
-print (x_train.shape)
-print (y_train.min(), y_train.max())
+print(x_train, y_train)
+print(x_train.shape)
+print(y_train.min(), y_train.max())
 
 ###############################################################################
 # Neural net from scratch (no torch.nn)
@@ -144,7 +144,7 @@ bs = 64  # batch size
 xb = x_train[0:bs]  # a mini-batch from x
 preds = model(xb)  # predictions
 preds[0], preds.shape
-print (preds[0], preds.shape)
+print(preds[0], preds.shape)
 
 ###############################################################################
 # As you see, the ``preds`` tensor contains not only the tensor values, but also a
